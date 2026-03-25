@@ -97,7 +97,7 @@ function closePayment() {
 
 function processPayment(method) {
     const payload = `buy_${method}_${selectedDays}`;
-    const botRawUrl = "https://t.me/guepardvpn_bot";
+    const botRawUrl = "https://t.me/guepard_vpn_bot";
     tg.openTelegramLink(`${botRawUrl}?start=${payload}`);
     tg.close();
 }
@@ -122,4 +122,18 @@ function shareRef() {
     const shareText = "Попробуй GuepardVPN! Быстрый и надежный.";
     const tgShareLink = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(shareText)}`;
     tg.openTelegramLink(tgShareLink);
+}
+
+function navToSupport() {
+    tg.openTelegramLink('https://t.me/guepard_vpn_bot?start=support');
+    tg.close();
+}
+
+function toggleDetails(id) {
+    const el = document.getElementById(id);
+    if (el.style.display === 'none') {
+        el.style.display = 'block';
+    } else {
+        el.style.display = 'none';
+    }
 }
