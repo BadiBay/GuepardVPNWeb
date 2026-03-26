@@ -97,7 +97,7 @@ function closePayment() {
 
 function processPayment(method) {
     const payload = `buy_${method}_${selectedDays}`;
-    const botRawUrl = "https://t.me/guepard_vpn_bot";
+    const botRawUrl = "https://t.me/guepardvpn_bot";
     tg.openTelegramLink(`${botRawUrl}?start=${payload}`);
     tg.close();
 }
