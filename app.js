@@ -20,6 +20,8 @@ const pUuid = params.get('uuid');
 const pEnd = params.get('end');
 const pBal = params.get('bal');
 const pTid = params.get('tid');
+const pAr = params.get('ar');
+const pPm = params.get('pm');
 
 if (pTid) {
     document.getElementById('ref-link').value = `https://t.me/guepardvpn_bot?start=ref_${pTid}`;
@@ -40,15 +42,28 @@ if (pEnd && pEnd !== 'None') {
 }
 
 if (pUuid && pUuid !== 'None') {
-    // We assume the bot passes the full vless link or we construct it.
-    // If bot passes uuid, we construct a dummy vless link or the bot passes the full link.
-    // Let's assume the bot passes the panel URL hostname.
-    const panelHost = "sub.guepardvpn.top:9684";
-    const pbk = "xxx"; // Needs Reality public key if we building VLESS. 
-    // It's better if bot passes a direct sub link
-    keyEl.value = pUuid; // the bot will pass the full sub link in the uuid param
+    keyEl.value = pUuid;
 } else {
     keyEl.value = 'Подписка не активна';
+}
+
+const arRowEl = document.getElementById('auto-renew-row');
+if (arRowEl) {
+    if (pPm === '1') {
+        arRowEl.style.display = 'flex'; // show the row
+        const arBtn = document.getElementById('auto-renew-btn');
+        if (arBtn) {
+            if (pAr === '1') {
+                arBtn.innerText = 'Отключить автопродление';
+                arBtn.style.color = 'var(--text-secondary)';
+            } else {
+                arBtn.innerText = 'Включить автопродление';
+                arBtn.style.color = 'var(--accent-color)';
+            }
+        }
+    } else {
+        arRowEl.style.display = 'none';
+    }
 }
 
 // Navigation Logic
@@ -126,6 +141,25 @@ function shareRef() {
 
 function navToSupport() {
     tg.openTelegramLink('https://t.me/guepardvpn_bot?start=support');
+    tg.close();
+}
+
+function navToDevices() {
+    tg.openTelegramLink('https://t.me/guepardvpn_bot?start=devices');
+    tg.close();
+}
+
+function subscribeChannel() {
+    tg.openTelegramLink('https://t.me/guepardvpnnews');
+}
+
+function checkChannelSub() {
+    tg.openTelegramLink('https://t.me/guepardvpn_bot?start=check_sub');
+    tg.close();
+}
+
+function toggleAutoRenew() {
+    tg.openTelegramLink('https://t.me/guepardvpn_bot?start=toggle_auto_renew');
     tg.close();
 }
 
